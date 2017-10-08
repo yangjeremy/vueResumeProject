@@ -9,10 +9,11 @@
          <label>密码</label>
          <input type="password" required v-model="formData.password">
        </div>
-       <div class="actions">
-         <input type="submit" value="提交">
-         <span>{{errorMessage}}</span>
-       </div>
+       <div class="signInActions">
+        <button @click.prevent="cancel">取 消</button></a>
+        <button @click.prevent="signIn" class="active">登 录</button></a>
+
+      </div>
      </form>
    </div>
  </template>
@@ -42,7 +43,45 @@
        }, (error)=> {
          this.errorMessage = getErrorMessage(error)
        });
-     }
+     },
+     cancel() {
+      this.$emit('cancel');
+    }
    }
  }
  </script>
+ <style lang="scss" scoped>
+ form {
+ .row {
+   display: flex;
+   justify-content: space-between;
+   margin: 10px 0;
+   input {
+     margin-left: 10px;
+   }
+ }
+ .signInActions{
+   text-align: center;
+ }
+ button {
+   margin-right: 5px;
+   padding: 5px 20px;
+   border-radius: 5px;
+   background: #fff;
+   border: 1px solid #ddd;
+   color: #888888;
+   font-size: 18px;
+   &:hover {
+     cursor: pointer;
+     border: 1px solid #156bdd;
+   }
+   &.active {
+     background: #156bdd;
+     color: #fff;
+     &:hover {
+       background: #3386dd;
+     }
+   }
+ }
+}
+ </style>

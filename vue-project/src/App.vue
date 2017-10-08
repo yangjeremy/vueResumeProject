@@ -1,13 +1,14 @@
 <template>
  <div>
-   <div class=page>
+   <div class=page v-bind:class="{previewMode:previewMode}">
      <header>
-       <Topbar/>
+       <Topbar v-on:preview="enterPreview" class="topbar"/>
      </header>
      <main>
-       <ResumeEditor/>
-       <ResumePreview/>
+       <ResumeEditor class="editor"/>
+       <ResumePreview class="preview"/>
      </main>
+     <el-button type="success" id="exit-preview" v-on:click="exitPreview">退出预览</el-button>
    </div>
   </div>
  </template>
@@ -27,6 +28,19 @@
      name: 'app',
      store,
       components: { Topbar, ResumeEditor, ResumePreview },
+      methods:{
+    enterPreview(){
+      this.previewMode = true
+    },
+    exitPreview(){
+      this.previewMode = false
+    }
+  },
+  data(){
+    return {
+      previewMode:false
+    }
+  },
       created() {
         document.body.insertAdjacentHTML('afterbegin', icons) //
         let state=localStorage.getItem('state')
@@ -64,12 +78,35 @@
    #resumeEditor{
      min-width: 35%;
      background: #444;
+     
    }
    #resumePreview{
      flex-grow: 1;
      margin-left: 16px;
      background: #777;
    }
+   #exit-preview{
+   display: none;
+ }
+
+ .previewMode #resumeEditor{
+   display: none;
+ }
+
+ .previewMode #topbar{
+   display: none;
+ }
+ .previewMode #exit-preview{
+   display: block;
+   position: fixed;
+   right: 20px;
+   bottom: 20px;
+ }
+ .previewMode #resumePreview{
+   max-width: 800px;
+   min-width: 800px;
+   margin: 10px auto;
+ }
    svg.icon{
      height: 1em;
      width: 1em;

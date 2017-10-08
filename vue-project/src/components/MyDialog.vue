@@ -38,16 +38,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 99;
   }
 .dialog{
-  background: #fff;
-  min-height: 4em;
-  min-width: 10em;
+   border-radius: 5px;
+   background: #fff;
+   min-height: 4em;
+   min-width: 10em;
+   overflow: hidden;
     >header{
-      padding: 16px;
+      padding: 8px 16px;
       display: flex;
       justify-content: space-between;
-
+      background: #3386dd;
+      color: #f0f0f0;
+      .close {
+          &:hover {
+            cursor: pointer;
+          }
+        }
     }
     >main{
       padding: 16px;

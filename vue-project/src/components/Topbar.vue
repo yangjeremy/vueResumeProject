@@ -1,31 +1,37 @@
 <template>
   <div id="topbar">
     <div class="wrapper">
-    <span class="logo">Resumer</span>
+    <span class="logo">  Resumer </span>
 
      <div class="actions">
 
        <div class="userActions" v-if="logined">
-         <span class="welcome">你好，{{user.username}}</span>
-         <a href="#" class="button" @click.prevent="signOut">登出</a>
+         <span class="welcome">您好，{{user.username}}</span>
+
+         <el-button type="primary" @click.prevent="signOut">登出</el-button>
        </div>
+
        <div class="userActions" v-else>
-         <a href="#" class="button primary" @click.prevent="signUpDialogVisible=true">注册</a>
-         <a href="#" class="button" @click.prevent="signInDialogVisible=true">登录</a>
+         <el-button @click.prevent="signUpDialogVisible=true">注册</el-button>
+         <el-button type="primary" @click.prevent="signInDialogVisible=true">登录</el-button>
+
+
        </div>
-       <button class="primary button">保存</button>
-       <button class="button">预览</button>
+
+       <el-button :plain="true" type="info">保存</el-button>
+        <el-button :plain="true" type="success" v-on:click="preview">预览</el-button>
+
      </div>
     </div>
 
 
     <MyDialog title="注册" :visible="signUpDialogVisible" @close="signUpDialogVisible = false">
-       <SignUpForm @success="signIn($event)"/>
+       <SignUpForm @success="signIn($event)"  @cancel="cancel"/>
      </MyDialog>
 
      <MyDialog title="登录" :visible="signInDialogVisible"
        @close="signInDialogVisible = false">
-       <SignInForm @success="signIn($event)" />
+       <SignInForm @success="signIn($event)" @cancel="cancel"/>
      </MyDialog>
  </div>
 </template>
@@ -55,6 +61,9 @@ export default {
     MyDialog,SignUpForm,SignInForm
   },
   methods:{
+    preview() {
+        this.$emit('preview');
+     },
     signOut(){
       AV.User.logOut()
       this.$store.commit('removeUser')
@@ -63,7 +72,11 @@ export default {
       this.signUpDialogVisible=false
       this.signInDialogVisible = false
       this.$store.commit('setUser',user)
-    }
+    },
+    cancel() {
+        this.signUpDialogVisible = false;
+        this.signInDialogVisible = false;
+      }
   }
 
  }

@@ -84,6 +84,8 @@
    color: #333;
    line-height: 1.2;
    overflow:auto;
+   border-radius: 4px;
+   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
    * {
    box-sizing: border-box;
    font-variant: normal;
@@ -100,7 +102,7 @@
    }
    section {
       > h2:first-child{
-          background: #ddd;
+
           display: inline-block;
           padding: .2em;
           margin-bottom: .5em;
@@ -109,7 +111,7 @@
     section[data-name="profile"]{
      > h1{
        margin: .1em 0;
-       font-size: 4em;
+       font-size: 2em;
     }
    }
     section[data-name="workHistory"],
@@ -137,4 +139,5 @@
      }
    }
    }
+
  </style>
