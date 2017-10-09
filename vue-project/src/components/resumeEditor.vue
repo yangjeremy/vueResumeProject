@@ -14,11 +14,11 @@
          <div v-if="resume[item.field] instanceof Array">
            <div class="subitem" v-for="(subitem,i) in resume[item.field]">
               <i class="el-icon-circle-close close-item" v-show="resume[item.field].length > 1" @click="removeItem(`${item.field}`, i)"></i>
+
              <div class="resumeField" v-for="(value,key) in subitem">
                <label> {{key}} </label>
 
                   <input class="input text" type="text" placeholder="input" :value="value" @input="changeResumeField(`${item.field}.${i}.${key}`, $event.target.value)"></input>
-
 
              </div>
              <hr>
